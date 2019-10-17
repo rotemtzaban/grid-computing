@@ -1,6 +1,6 @@
 importScripts("https://pyodide.cdn.iodide.io/pyodide.js");
 
-var onmessage = function(e) {
+self.onmessage = function(e) {
     // eslint-disable-line no-unused-vars
     languagePluginLoader.then(() => {
         self.pyodide.loadPackage(["numpy", "pytz"]).then(() => {

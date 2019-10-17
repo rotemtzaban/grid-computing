@@ -19,10 +19,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app",
-    "rules": {
-      "no-webpack-loader-syntax": "disable"
-  }
+    "extends": "react-app"
   },
   "browserslist": {
     "production": [

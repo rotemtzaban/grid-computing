@@ -1,16 +1,14 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-// import Python from 'worker-loader!./python.worker.js';
-
-declare var languagePluginLoader: any;
-declare var pyodide: any;
+/* eslint import/no-webpack-loader-syntax: off */
+import Python from 'worker-loader!./python.worker';
 
 const App: React.FC = () => {
   fetch("http://localhost:5000/work")
     .then(res => res.text())
     .then((pythonScript) => {
-      const pyodideWorker = new Worker("./python.worker.js");
+      const pyodideWorker = new Python();
       pyodideWorker.onmessage = e => {
         const { results, error } = e.data;
         if (results) {
