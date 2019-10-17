@@ -12,7 +12,7 @@ def hello_world():
 
 @app.route('/work')
 def work():
-    return 'np.version.version\nnp.array([1, 3, 5])'
+    return 'import numpy as np\nnp.array([1, 3, 5])\nnp.version.version'
 
 
 app.run()
