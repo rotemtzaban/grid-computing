@@ -15,4 +15,5 @@ def work():
     return 'import numpy as np\nnp.array([1, 3, 5])\nnp.version.version'
 
 
-app.run()
+if __name__ == "__main__":
+    app.run()
