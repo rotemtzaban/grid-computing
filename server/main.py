@@ -1,8 +1,11 @@
 from flask import Flask
 from flask_cors import CORS
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
 CORS(app)
+app.config['SECRET_KEY'] = 'fuck_peretz!'
+socketio = SocketIO(app)
 
 
 @app.route('/test')
@@ -16,4 +19,4 @@ def work():
 
 
 if __name__ == "__main__":
-    app.run()
+    socketio.run(app)

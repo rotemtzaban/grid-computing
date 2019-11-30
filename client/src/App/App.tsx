@@ -1,8 +1,8 @@
 import React from "react";
-import logo from "./logo.svg";
+import logo from "../logo.svg";
 import "./App.css";
 /* eslint import/no-webpack-loader-syntax: off */
-import Python from 'worker-loader!./python.worker';
+import Python from 'worker-loader!../pythonWorker/python.worker';
 
 const App: React.FC = () => {
   fetch("http://localhost:5000/work")
@@ -25,21 +25,7 @@ const App: React.FC = () => {
 
       pyodideWorker.postMessage(data);
     });
-  // languagePluginLoader.then(async () => {
-  //   // pyodide is now ready to use...
-  //   console.log("init done");
-  //   console.log(pyodide.runPython("import sys\nsys.version"));
-  //   console.log(pyodide.runPython('[4, 5, "uasd"]'));
-  //   await pyodide.loadPackage(["numpy"]);
-  //   console.log(pyodide.runPython("import numpy as np"));
-  //   const work = await fetch("http://localhost:5000/work");
-  //   const workText = await work.text();
-  //   print(workText);
-  // });
 
-  // function print(str: string) {
-  //   console.log(pyodide.runPython(str));
-  // }
   return (
     <div className="App">
       <header className="App-header">
