@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit
 
@@ -15,13 +15,18 @@ def hello_world():
 
 @app.route('/work')
 def work():
-    return 'import numpy as np\nnp.array([1, 3, 5])\nnp.version.version'
+    return 'a = [1,2,3]\na[1]'
 
+@app.route('/finish/')
+def finished():
+    a = request.args.get('res')
+    print(a)
+    return 'Thanks, peretz is stright'
 
-@socket.on('connect')
-def on_connect():
-    print("peretz is gay")
-    emit('work', 'import numpy as np\nnp.array([1, 3, 5])\nnp.version.version')
+# @socket.on('connect')
+# def on_connect():
+#     print("peretz is gay")
+#     emit('work', 'import numpy as np\nnp.array([1, 3, 5])\nnp.version.version')
 
 
 if __name__ == "__main__":

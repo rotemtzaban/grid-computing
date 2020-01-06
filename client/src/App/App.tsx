@@ -7,12 +7,6 @@ import openSocket from 'socket.io-client'
 
 
 const App: React.FC = () => {
-    const socket = openSocket('http://localhost:5000');
-    for (let i = 0; i < 10; i++)
-        socket.emit('connect', "peretz is gay");
-    socket.on('work', (work_msg: string) => {
-        console.log(work_msg)
-    });
 
 
     fetch("http://localhost:5000/work")
@@ -22,6 +16,7 @@ const App: React.FC = () => {
             pyodideWorker.onmessage = e => {
                 const {results, error} = e.data;
                 if (results) {
+                    fetch('http://localhost:5000/finish/?res=' + results);
                     console.log("pyodideWorker return results: ", results);
                 } else if (error) {
                     console.log("pyodideWorker error: ", error);
