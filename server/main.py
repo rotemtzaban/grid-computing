@@ -9,7 +9,7 @@ socket = SocketIO(app, cors_allowed_origins='*')
 
 global worker_num
 global total_workers_num
-global total
+global results
 
 @app.route('/test')
 def hello_world():
@@ -19,34 +19,40 @@ def hello_world():
 @app.route('/work')
 def work():
     global worker_num
-    global total
+    global results
     try:
         worker_num
     except NameError:
         worker_num = 0
-        total = 0
+        results = []
 
 
 
     f = open("example.py", "r")
-    python_code = f.read() + '\nmain()'
+    python_code = f.read() + '\nmap()'
     return python_code
 
 @app.route('/finish/')
 def finished():
     global worker_num
     global total_workers_num
-    global total
+    global reduced_value
+
+    global results
 
     print('worker_num' + str(worker_num))
 
 
-    total_workers_num = 3
-    a = int(request.args.get('res'))
-    total += a
+    total_workers_num = 2
+    result = int(request.args.get('res'))
+    results.append(result)
+
+
     worker_num += 1
     if total_workers_num == worker_num:
-        print(total)
+        f = open("example.py", "r")
+        exec(f.read() + '\nglobal reduced_value\nreduced_value = reduce(' + str(results) + ')')
+        print(reduced_value)
     else:
         print('Waiting for more...')
 
