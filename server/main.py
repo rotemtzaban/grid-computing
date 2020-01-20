@@ -1,11 +1,11 @@
 from flask import Flask, request
 from flask_cors import CORS
-from flask_socketio import SocketIO, emit
+# from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 CORS(app)
 # app.config['SECRET_KEY'] = 'fuck_peretz!'
-socket = SocketIO(app, cors_allowed_origins='*')
+# socket = SocketIO(app, cors_allowed_origins='*')
 
 global worker_num
 global total_workers_num
@@ -66,5 +66,5 @@ def finished():
 
 if __name__ == "__main__":
     print('running app')
-    socket.run(app)
+    app.run()
 
