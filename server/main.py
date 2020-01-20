@@ -1,15 +1,13 @@
 from flask import Flask, request
 from flask_cors import CORS
-# from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 CORS(app)
-# app.config['SECRET_KEY'] = 'fuck_peretz!'
-# socket = SocketIO(app, cors_allowed_origins='*')
 
 global worker_num
 global total_workers_num
 global results
+
 
 @app.route('/test')
 def hello_world():
@@ -26,11 +24,10 @@ def work():
         worker_num = 0
         results = []
 
-
-
     f = open("example.py", "r")
     python_code = f.read() + '\nmap()'
     return python_code
+
 
 @app.route('/finish/')
 def finished():
@@ -42,11 +39,9 @@ def finished():
 
     print('worker_num' + str(worker_num))
 
-
     total_workers_num = 2
     result = int(request.args.get('res'))
     results.append(result)
-
 
     worker_num += 1
     if total_workers_num == worker_num:
@@ -57,11 +52,6 @@ def finished():
         print('Waiting for more...')
 
     return 'Thanks, peretz is stright'
-
-# @socket.on('connect')
-# def on_connect():
-#     print("peretz is gay")
-#     emit('work', 'import numpy as np\nnp.array([1, 3, 5])\nnp.version.version')
 
 
 if __name__ == "__main__":
