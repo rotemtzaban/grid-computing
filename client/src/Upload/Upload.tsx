@@ -41,13 +41,13 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
                     <FormGroup>
                         <Label for="dataFile">Data file</Label>
                         <input type="file" name="dataFile" accept=".csv,.txt" className="upload-file" onChange={this.uploadFile} />
-                        <Label for="dataFile">Code file</Label>
-                        <input type="file" name="code-file" accept=".py" className="upload-file" onChange={this.uploadFile} />
+                        <Label for="codeFile">Code file</Label>
+                        <input type="file" name="codeFile" accept=".py" className="upload-file" onChange={this.uploadFile} />
                     </FormGroup>
                     
                     <FormGroup>
-                        <Label for="proclamationYear">Batch</Label>
-                        <Input type="text" name="proclamationYear" id="proclamationYear"  onChange={this.proclamationYearChange} value={this.state.proclamationYear} />
+                        <Label for="batch">Batch</Label>
+                        <Input type="text" name="batch" />
                         <Input type="submit" value="Start"></Input>
                     </FormGroup>
                     
@@ -74,21 +74,21 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
         console.log(this.file)
         let formData = new FormData();
         formData.append('file', this.file);
-        // fetch("UploadFile", {
-        //     method: 'POST',
-        //     credentials: 'include',
-        //     headers: {
-        //         'Accept': 'application/json, */*',
-        //     },
-        //     body: formData
-        // })
-        //     .then(handleErrors)
-        //     .then(function (response) {
-        //         console.log("ok");
-        //     }).catch(function (error) {
+        fetch("http://localhost:5000/upload", {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'Accept': 'application/json, */*',
+            },
+            body: formData
+        })
+            .then(handleErrors)
+            .then(function (response) {
+                console.log("ok");
+            }).catch(function (error) {
 
-        //         console.log(error);
-        //     });
+                console.log(error);
+            });
     }
 };
 function handleErrors(response: any) {
