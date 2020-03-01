@@ -14,8 +14,17 @@ def hello_world():
 	return 'Hello, World!'
 
 
-@app.route('/upload', methods=['POST'])
-def upload():
+@app.route('/upload_data', methods=['POST'])
+def upload_data():
+	file = request.files['file']
+	file.save(file.filename)
+
+	response = jsonify({'a': "What a nice file"})
+	response.headers.add('Access-Control-Allow-Origin', '*')
+	return response
+
+@app.route('/upload_code', methods=['POST'])
+def upload_code():
 	file = request.files['file']
 	file.save(file.filename)
 
