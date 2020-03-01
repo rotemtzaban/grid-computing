@@ -76,7 +76,7 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
         formData.append('file', this.file);
         fetch("http://localhost:5000/upload", {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'omit',
             headers: {
                 'Accept': 'application/json, */*',
             },
