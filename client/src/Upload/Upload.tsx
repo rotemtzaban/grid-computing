@@ -18,6 +18,8 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
             tcknVkn: 0,
             alertVisible: false
         }
+        this.uploadDataFile = this.uploadDataFile.bind(this);
+        this.uploadCodeFile = this.uploadCodeFile.bind(this);
         this.uploadFile = this.uploadFile.bind(this);
         this.fileChange = this.fileChange.bind(this);
 
@@ -36,13 +38,13 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
         return (
             <div>
 
-                <Form onSubmit={this.uploadFile} className="uploader" encType="multipart/form-data" >
+                <Form onSubmit={this.submit} className="uploader" encType="multipart/form-data" >
 
                     <FormGroup>
                         <Label for="dataFile">Data file</Label>
-                        <input type="file" name="dataFile" accept=".csv,.txt" className="upload-file" onChange={this.uploadFile} />
+                        <input type="file" name="dataFile" accept=".csv,.txt" className="upload-file" onChange={this.uploadDataFile} />
                         <Label for="codeFile">Code file</Label>
-                        <input type="file" name="codeFile" accept=".py" className="upload-file" onChange={this.uploadFile} />
+                        <input type="file" name="codeFile" accept=".py" className="upload-file" onChange={this.uploadCodeFile} />
                     </FormGroup>
                     
                     <FormGroup>
@@ -67,16 +69,21 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
             </div>
         );
     }
-    uploadFile(event: any) {
+
+    submit(){
+
+    }
+
+    uploadFile(event: any, url: string){
         let that = this;
         this.fileChange(event)
         event.preventDefault();
         console.log(this.file)
         let formData = new FormData();
         formData.append('file', this.file);
-        fetch("http://localhost:5000/upload", {
+        fetch(url, {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'omit',
             headers: {
                 'Accept': 'application/json, */*',
             },
@@ -89,6 +96,14 @@ export default class Upload extends React.Component<{}, UploadContainerState> {
 
                 console.log(error);
             });
+    }
+
+    uploadDataFile(event: any) {
+        this.uploadFile(event, "http://localhost:5000/upload_data");
+    }
+
+    uploadCodeFile(event: any) {
+        this.uploadFile(event, "http://localhost:5000/upload_code");
     }
 };
 function handleErrors(response: any) {
